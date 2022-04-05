@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">therapie app</string>
+    <string name="entermood">entermood</string>
+    <string name="settings">settings</string>
+    <string name="Name_app">App name to be desided</string>
+    <string name="mood_thermometer">mood thermometer</string>
+    <string name="active_suggestions">active suggestions</string>
+    <string name="notifications">. Notifications</string>
+    <string name="color_change">. Color change</string>
+    <string name="privacy">. Privacy</string>
+    <string name="about">. About</string>
+    <string name="about_text">This app is made by Allard van der Hooft and Tobias Brouwers for prof dev module 3 introduction to create. It is an app that allows you to fill in your mood throughout the day.</string>
+</resources>
