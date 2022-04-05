@@ -7,18 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private Button settingsButton;
     private Button enterMoodButton;
-    private Button moodThermometerButton;
     GraphView graphView;
     LineGraphSeries<DataPoint> series;
+    SimpleDateFormat sdf=new SimpleDateFormat("mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,18 @@ public class MainActivity extends AppCompatActivity {
         series=new LineGraphSeries<>(getDataPoint());
         graphView.addSeries(series);
 
+        graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
+        {
+            @Override
+            public String formatLabel(double value, boolean isValueX) {
+                if(isValueX){
+                    return  sdf.format(new Date((long) value));
+                }else {
+                    return super.formatLabel(value, isValueX);
+                }
+            }
+        });
+
         enterMoodButton = (Button) findViewById(R.id.enterMood);
         enterMoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,15 +51,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        moodThermometerButton = (Button) findViewById(R.id.mood_thermometer);
-        moodThermometerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openMoodThermometer();
-            }
-        });
-
-        //----------------------------------------------------\\
         settingsButton = (Button) findViewById(R.id.settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,17 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private DataPoint[] getDataPoint() {
         DataPoint[] dp=new DataPoint[] {
                 new DataPoint(new Date().getTime(),1),
-                new DataPoint(new Date().getTime(),22),
-                new DataPoint(new Date().getTime(),3),
-                new DataPoint(new Date().getTime(),14),
-                new DataPoint(new Date().getTime(),9),
-                new DataPoint(new Date().getTime(),16),
-                new DataPoint(new Date().getTime(),8),
-                new DataPoint(new Date().getTime(),2),
-                new DataPoint(new Date().getTime(),11),
-                new DataPoint(new Date().getTime(),18),
-                new DataPoint(new Date().getTime(),17),
-
+                new DataPoint(new Date().getTime(),5),
         };
         return dp;
     }
@@ -77,15 +72,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
-        //------------------------------------------------------\\
 
     public void openEnterMood() {
-        Intent intent = new Intent(this, enterMood.class);
-        startActivity(intent);
-    }
-
-    public void openMoodThermometer() {
-        Intent intent = new Intent(this, moodThermometer.class);
+        Intent intent = new Intent(this, EnterMood.class);
         startActivity(intent);
     }
 }
